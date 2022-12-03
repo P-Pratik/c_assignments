@@ -11,15 +11,16 @@ using namespace std;
 class Node{
     public:
     int PRN;
+    char name[50];
     Node* next;
 };
 void display(Node** head){
     int count;
     Node* temp = *head;
     count=1;
-    cout<<"Sr. No\tPRN"<<endl;
+    cout<<"Sr. No\t\tName\t\tPRN"<<endl;
     while(temp!=NULL){
-        cout<<count<<"\t"<<temp->PRN<<endl;
+        cout<<count<<"\t\t"<<temp->name<<"\t\t"<<temp->PRN<<endl;
         temp=temp->next;
         count+=1;
     }        
@@ -57,7 +58,10 @@ void insert_president(Node** head){
     Node* newNode;
     newNode = new Node();
     cout<<"Enter the PRN of the new president:- ";
-    cin>>newNode->PRN;
+    cin.ignore();
+    cin.getline(newNode->name,30);
+    cout<<"Enter the Name of President:- ";
+    cin>>newNode->name;
     newNode->next=*head;
 
     *head=newNode;
@@ -66,6 +70,9 @@ void insert_president(Node** head){
 
 void insert_secretary(Node** head){
     Node* newNode = new Node();
+    cout<<"Enter the Name of Secretary:- ";
+    cin.ignore();
+    cin.getline(newNode->name,30);
     cout<<"Enter the PRN of new secretary:- ";
     cin>>newNode->PRN;
     newNode->next=NULL;
@@ -83,6 +90,9 @@ void insert_member(int a, Node** head){
 
     Node* newNode;
     newNode = new Node();
+    cout<<"Enter the Name of member:- ";
+    cin.ignore();
+    cin.getline(newNode->name,30);
     cout<<"Enter the PRN of member:- ";
     cin>>newNode->PRN;
     newNode->next=NULL;
@@ -101,7 +111,7 @@ void insert_member(int a, Node** head){
 void delete_node(Node** head, int d){
     Node* temp = *head;
     Node* prev = *head;
-    cout<<"here 1"<<endl;
+    //cout<<"here 1"<<endl;
 
     while(d>1){
         while(d>2){
@@ -111,15 +121,30 @@ void delete_node(Node** head, int d){
         temp=temp->next;
         d-=1;
     }
-    cout<<"here 2"<<endl;
-    cout<<prev->PRN<<"    "<<temp->PRN<<"   "<<temp->next<<endl;
+    //cout<<"here 2"<<endl;
+    //cout<<prev->PRN<<"    "<<temp->PRN<<"   "<<temp->next<<endl;
     prev->next=temp->next; 
-    cout<<"here 3"<<endl;
-    cout<<prev->PRN<<"    "<<prev->next<<endl;
+    //cout<<"here 3"<<endl;
+    //cout<<prev->PRN<<"    "<<prev->next<<endl;
     delete temp;
     cout<<"Member has been removed"<<endl;
 
 }
+
+/*void exit_program(Node** head){    //will complete later. not useful anyways but is a good practice to delete all the memory allocated. But it is deleted after closing the program so it is not a problem.
+    Node* temp = *head;
+    Node* end = *head;
+    Node* adrstore = *head;
+
+    while(end!=NULL){
+        adrstore=temp->next;
+        end=temp->next;
+        delete temp;
+        temp = adrstore;
+
+    }
+}
+*/
 int main(){
     int a,i,c,d;
 
@@ -129,9 +154,14 @@ int main(){
     head = new Node();
     last = new Node();
 
+    cout<<"Enter the Name of President:- ";
+    cin.getline(head->name,30);
     cout<<"Enter the PRN of president:- ";
     cin>>head->PRN;
     head->next=last;
+    cout<<"Enter the Name of Secretary:- ";
+    cin.ignore();
+    cin.getline(last->name,30);
     cout<<"Enter the PRN of secretary:- ";
     cin>>last->PRN;
     last->next=NULL;
