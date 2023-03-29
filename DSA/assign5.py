@@ -12,9 +12,11 @@ def accept():
 
 def selection_sort():
     for i in range(n):
-        for j in range (0+i,n):
-            if marks[i]>marks[j]:
-                marks[j],marks[i]=marks[i],marks[j]
+        min_index = i
+        for j in range(i+1, n):
+            if marks[j] < marks[min_index]:
+                min_index = j
+        marks[i], marks[min_index] = marks[min_index], marks[i]
 
 def bubble_sort():
     for j in range(n):
