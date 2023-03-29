@@ -10,25 +10,42 @@ class HashTable {
 
     hash h[10];
     public:
+        int full=0;
+
         HashTable();
         
         void remove();
         void display();
         int hashFunction(int key);
+        
+        int space(){
+            cout<<full<<"/10"<<endl;
+        }
 
         void insert(){
         
-            int phone,Hkey; 
+            int phone,hkey,full=0; 
             char name[20];
+
 
             cout<<"enter the phone number and then insert the name of the person";
             cin>>phone>>name;
 
-            Hkey = hashFunction(phone);
-            if(h[Hkey].key == -1){
+            hkey = hashFunction(phone);
+            
+            if(h[hkey].key == -1){
 
-                h[Hkey].key = phone;
-                strcpy(h[Hkey].name, name);
+                h[hkey].key = phone;
+                strcpy(h[hkey].name, name);
+                full++;
+            }
+            else{
+                while(hkey!=-1){
+                    hkey+=1;
+                }
+                h[hkey].key = phone;
+                strcpy(h[hkey].name,name);
+                full++;
             }
 
         }
@@ -75,6 +92,7 @@ int main(){
         cout<<"2. Delete Data"<<endl;
         cout<<"3. Search Data"<<endl;
         cout<<"4. Display Data"<<endl;
+        cout<<"5. Spaces Filled"<<endl;
 
         cin>>ch;
 
@@ -86,6 +104,10 @@ int main(){
         
         case 4:
             HT.display();
+            break;
+        
+        case 5:
+            HT.space();
             break;
 
         default:
