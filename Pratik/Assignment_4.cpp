@@ -133,6 +133,7 @@ do
         break;
         
     case 1:
+        
         cout<<"Enter the value of tree node to insert in BST"<<endl;
         cin >> val; 
         newNode->value = val;
@@ -159,7 +160,6 @@ do
     }
 
 } while (ch != 0);
-
 
 return 0;
 }

@@ -17,8 +17,8 @@ class HashTable {
         void remove();
         void display();
         int hashFunction(int key);
-        
-        int space(){
+
+        void space(){
             cout<<full<<"/10"<<endl;
         }
 
@@ -32,20 +32,22 @@ class HashTable {
             cin>>phone>>name;
 
             hkey = hashFunction(phone);
-            
-            if(h[hkey].key == -1){
+            while(full != 10){
+                if(h[hkey].key == -1){
 
-                h[hkey].key = phone;
-                strcpy(h[hkey].name, name);
-                full++;
-            }
-            else{
-                while(hkey!=-1){
-                    hkey+=1;
+                    h[hkey].key = phone;
+                    strcpy(h[hkey].name, name);
+                    full++;
                 }
-                h[hkey].key = phone;
-                strcpy(h[hkey].name,name);
-                full++;
+
+                else{
+                    while(hkey!=-1){
+                        hkey+=1;
+                    }
+                    h[hkey].key = phone;
+                    strcpy(h[hkey].name,name);
+                    full++;
+                }
             }
 
         }

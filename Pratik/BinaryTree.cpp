@@ -29,6 +29,7 @@ public:
         root = NULL;
     }
 
+
     bool isEmpty(){
         if (root == NULL)
         return true;
