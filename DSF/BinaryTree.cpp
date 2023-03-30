@@ -22,6 +22,7 @@ public:
 };
 
 class BST{
+
 public:
     TreeNode* root; 
 
@@ -37,8 +38,8 @@ public:
         else
         return false;
     }
-
-    void insert(TreeNode *newNode){
+    
+    void insert(TreeNode *newNode){             //Insertion Operation 
         if(root == NULL) {
             root = newNode;
             cout<<"Value Inserted at Root"<<endl;
@@ -74,14 +75,73 @@ public:
         }
     }
 
+    TreeNode* search(int s_value){
+        if(root == NULL){
+            return root;
+        }
+        else{
+            TreeNode *temp = root;
+            while (temp!=NULL){
+                if(s_value == temp->value){
+                    return temp;
+                }
+                else if(s_value < temp->value){
+                    temp = temp -> left;
+                }
+                else{
+                    temp = temp -> right;
+                }
+            }
+            cout<<"Value is not present in the tree"<<endl;
+            return NULL;
+        }
+    }
+
+    //Printing Functions
+    void print2D(TreeNode *r, int space) {
+        int i; 
+        if (r == NULL) 
+            return;
+        space += SPACE; 
+        print2D(r -> right, space); 
+        cout << endl;
+        for (i = 10 ; i < space ; i++) 
+            cout << " ";
+        cout << r -> value << "\n"; 
+        print2D(r -> left, space); 
+    }
+
+    void preOrder(TreeNode *r){
+        if(r == NULL )
+        return;
+
+        cout<<r->value<<" ,";
+        preOrder(r->left);
+        preOrder(r->right);
+    }
+    
+    void inOrder(TreeNode *r){
+        if (r == NULL)
+        return;
+
+        inOrder(r->left);
+        cout<<r->value<<" ,";
+        inOrder(r->right);
+    }
+
+    void postOrder(TreeNode *r){
+        if (r == NULL)
+        return;
+
+        inOrder(r->left);
+        inOrder(r->right);
+        cout<<r->value<<" ,";
+    }
 };
-
-
-
-
 
 int main(){
 int ch,val;
+int searched_val;
 BST B; 
 
 do
@@ -90,12 +150,12 @@ do
     cout<<"1. Insert Node"<<endl;
     cout<<"2. Delete Node"<<endl;
     cout<<"3. Search Node"<<endl;
-    cout<<"4. Print BST values"<<endl;
-    cout<<"5. Clear Screen"<<endl;
+    cout<<"4. Print 2D representation of BST"<<endl;
+    cout<<"5. Print  Representation of BST"<<endl;
+    cout<<"9. Clear Screen"<<endl;
     cout<<"0. Exit Program"<<endl;
 
-    cin>>ch;
-    TreeNode *newNode = new TreeNode();
+    cin>>ch;    
 
     switch (ch)
     {
@@ -104,13 +164,58 @@ do
         break;
         
     case 1:
-        cout<<"Enter the value of tree node to insert in BST";
-        cin >> val; 
-        newNode->value = val;
-        B.insert(newNode);
+        do{
+            TreeNode *newNode = new TreeNode();
+            cout<<"Enter the value of tree node to insert in BST (enter -1 to stop entering) :- "<<endl;
+            cin >> val;
+            if (val != -1){
+            newNode->value = val;
+            B.insert(newNode);
+            cout<<endl;
+        }
+        }
+        while (val != -1);
+        break;
+    
+    case 3:
+        TreeNode *return_s;
+        cout<<"Enter the value to be searched :"<<endl;
+        cin>>searched_val;
+        return_s = B.search(searched_val);
+        if ( return_s != NULL ){
+
+            cout<<"The Searched Value is "<<return_s ->value << endl;
+            if (return_s ->left != NULL)
+            cout<<"left node - :"<<return_s->left->value<<endl;
+
+            if (return_s->right != NULL)
+            cout<<"right node - :"<<return_s->right->value <<endl;
+        }
+        else{
+            cout<<"Searched Value is not present in the tree"<<endl;
+        }
+
+        break;
+
+    case 4:
+        cout<<"2D figure: "<<endl;
+        B.print2D(B.root , 5);
         cout<<endl;
+        break;
 
     case 5:
+        cout<<"PreOrder BST form"<<endl;
+        B.preOrder(B.root);
+        cout<<endl;
+        cout<<"InOrder BST form"<<endl;
+        B.inOrder(B.root);
+        cout<<endl;
+        cout<<"PostOrder BST form"<<endl;
+        B.postOrder(B.root);
+        cout<<endl;
+        break;
+
+    case 9:
         system("cls");
         break;
     
