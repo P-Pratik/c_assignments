@@ -1,7 +1,7 @@
 /*
 Beginning with an empty binary search tree. Construct a binary search tree by inserting the values in the order given. After constructing a binary tree - 
 1 - insert new node 
-2 - Find number of nodes in longest path from root
+2 - Find number of nodes in longest path from root - basically just height
 3 - Minimum data value found in the tree 
 4 - Change a tree so that the roles of the left and right pointers are swapped at every node
 5 - Search a value (with recursion)
@@ -32,7 +32,8 @@ public:
 
 class BST{
 public:
-    TreeNode* root; 
+    TreeNode* root;
+    int lheight = 0 , rheight = 0;
 
     BST(){
         root = NULL;
@@ -83,6 +84,21 @@ public:
         }
     }
 
+    int height(TreeNode *heightNode){
+        if (heightNode == NULL){
+            return -1;
+        }   
+        else{
+            lheight = height(heightNode->left);
+            rheight = height(heightNode->right);
+            if(lheight > rheight){
+                return lheight + 1; 
+            }
+            else
+                return rheight + 1;
+        }
+    }
+
     int minimum_val(){
             
         TreeNode *temp=root;
@@ -119,8 +135,9 @@ do
     cout<<"1. Insert Node"<<endl;
     cout<<"2. Display"<<endl;
     cout<<"3. Minimum Data Value"<<endl;
-    cout<<"4. Swap left and right pointers"<<endl;
-    cout<<"5. Clear Screen"<<endl;
+    cout<<"4. Number of nodes in the longest branch"<<endl;
+    cout<<"5. Swap"<<endl;
+    cout<<"6. Clear Screen"<<endl;
     cout<<"0. Exit Program"<<endl;
 
     cin>>ch;
@@ -133,7 +150,6 @@ do
         break;
         
     case 1:
-        
         cout<<"Enter the value of tree node to insert in BST"<<endl;
         cin >> val; 
         newNode->value = val;
@@ -146,11 +162,20 @@ do
         B.print2D(B.root, 5);
         cout << endl;
         break;
+
     case 3:
         a = B.minimum_val();
         cout <<"The minimum data value in the tree is : " << a << endl;
-        break; 
-    case 5:
+        break;
+
+    case 4:
+        int height;
+        height = B.height(B.root);
+        cout << "Number of nodes in the longest branch is" << height + 1 << endl;
+        break;
+        break;
+
+    case 6:
         system("clear");
         break;
     

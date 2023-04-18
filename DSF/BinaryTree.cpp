@@ -25,6 +25,7 @@ class BST{
 
 public:
     TreeNode* root; 
+    int lheight = 0 , rheight = 0;
 
     BST(){
         root = NULL;
@@ -75,7 +76,15 @@ public:
         }
     }
 
-    TreeNode* search(int s_value){
+    void deleteNode(int d_val){
+        if(root == NULL)
+        return;
+        else{
+            
+        }
+    }
+
+    TreeNode* search(int s_value){ 
         if(root == NULL){
             return root;
         }
@@ -94,6 +103,21 @@ public:
             }
             cout<<"Value is not present in the tree"<<endl;
             return NULL;
+        }
+    }
+    
+    int height(TreeNode *heightNode){
+        if (heightNode == NULL){
+            return -1;
+        }   
+        else{
+            lheight = height(heightNode->left);
+            rheight = height(heightNode->right);
+            if(lheight > rheight){
+                return lheight + 1; 
+            }
+            else
+                return rheight + 1;
         }
     }
 
@@ -152,6 +176,7 @@ do
     cout<<"3. Search Node"<<endl;
     cout<<"4. Print 2D representation of BST"<<endl;
     cout<<"5. Print  Representation of BST"<<endl;
+    cout<<"6. Display the height of the tree"<<endl;
     cout<<"9. Clear Screen"<<endl;
     cout<<"0. Exit Program"<<endl;
 
@@ -214,9 +239,13 @@ do
         B.postOrder(B.root);
         cout<<endl;
         break;
-
+    case 6:
+        int height;
+        height = B.height(B.root);
+        cout << "The height of the tree is :- " << height << endl;
+        break;
     case 9:
-        system("cls");
+        system("clear");
         break;
     
     default:
