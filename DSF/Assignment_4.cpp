@@ -136,11 +136,22 @@ public:
         print2D(r -> left, space); 
     }
 
+    TreeNode * recursiveSearch(TreeNode * r, int val) {
+    if (r == NULL || r -> value == val)
+      return r;
+
+    else if (val < r -> value)
+      return recursiveSearch(r -> left, val);
+
+    else
+      return recursiveSearch(r -> right, val);
+  }
+
 };
 
 
 int main(){
-int ch,val;
+int ch,val,searched_val;
 int a; 
 BST B; 
 
@@ -152,7 +163,8 @@ do
     cout<<"3. Minimum Data Value"<<endl;
     cout<<"4. Number of nodes in the longest branch"<<endl;
     cout<<"5. Swap"<<endl;
-    cout<<"6. Clear Screen"<<endl;
+    cout<<"6. Search Recursive "<<endl;
+    cout<<"7. Clear Screen"<<endl;
     cout<<"0. Exit Program"<<endl;
 
     cin>>ch;
@@ -203,6 +215,26 @@ do
     break;
 
     case 6:
+        TreeNode *return_s;
+        cout<<"Enter the value to be searched :"<<endl;
+        cin>>searched_val;
+        return_s = B.recursiveSearch(B.root, searched_val);
+        if ( return_s != NULL ){
+
+            cout<<"The Searched Value is "<<return_s ->value << endl;
+            if (return_s ->left != NULL)
+            cout<<"left node - :"<<return_s->left->value<<endl;
+
+            if (return_s->right != NULL)
+            cout<<"right node - :"<<return_s->right->value <<endl;
+        }
+        else{
+            cout<<"Searched Value is not present in the tree"<<endl;
+        }
+        break;
+
+
+    case 7:
         system("clear");
         break;
     
