@@ -107,6 +107,21 @@ public:
         }
         return (temp -> value);     
         }
+    
+    void swap(TreeNode *node){
+        if(node == NULL)
+            return;
+        else{
+            // swap left and right pointers of the node
+            TreeNode *temp = node->left;
+            node->left = node->right;
+            node->right = temp;
+
+            // call swap recursively on the left and right children
+            swap(node->left);
+            swap(node->right);
+        }
+    }
 
     void print2D(TreeNode *r, int space) {
         int i; 
@@ -141,7 +156,6 @@ do
     cout<<"0. Exit Program"<<endl;
 
     cin>>ch;
-    TreeNode *newNode = new TreeNode();
 
     switch (ch)
     {
@@ -150,11 +164,17 @@ do
         break;
         
     case 1:
-        cout<<"Enter the value of tree node to insert in BST"<<endl;
-        cin >> val; 
-        newNode->value = val;
-        B.insert(newNode);
-        cout<<endl;
+        do{
+            TreeNode *newNode = new TreeNode();
+            cout<<"Enter the value of tree node to insert in BST (enter -1 to stop entering) :- "<<endl;
+            cin >> val;
+            if (val != -1){
+            newNode->value = val;
+            B.insert(newNode);
+            cout<<endl;
+        }
+        }
+        while (val != -1);
         break;
 
     case 2: 
@@ -174,6 +194,13 @@ do
         cout << "Number of nodes in the longest branch is" << height + 1 << endl;
         break;
         break;
+
+    case 5:
+    B.swap(B.root);
+    cout << "BST after swapping:" << endl;
+    B.print2D(B.root, 5);
+    cout << endl;
+    break;
 
     case 6:
         system("clear");
