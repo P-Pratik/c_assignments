@@ -1,28 +1,16 @@
 #include<iostream>
-#include<stdlib.h>
+#include<queue>
 using namespace std;
 
 class Process{
     int id, bt, at, ct, tat, wt;
     public:
     void input(Process*,int );
-    void calc(Process *,int);
+    void calc_fcfs(Process *,int);
+    void calc_rr(Process *,int, int);
     void show(Process*,int);
     void sort(Process *, int);
 };
-
-int main(){
-    int n;
-    cout<<"\nEnter the no of processes in your system:\n";
-    cin>>n;
-    Process *p = new Process[n];
-    Process f;
-    f.input(p,n);
-    f.sort(p, n);
-    f.calc(p,n);
-    f.show(p,n);
-    return 0;
-}
 
 void Process::input(Process *p,int n){
     for(int i = 0;i<n;i++){
@@ -34,7 +22,7 @@ void Process::input(Process *p,int n){
     }
 }
 
-void Process::calc(Process*p, int n){
+void Process::calc_fcfs(Process*p, int n){
     int sum = 0;
     sum = sum + p[0].at;
     for(int i = 0;i<n;i++){
@@ -45,6 +33,38 @@ void Process::calc(Process*p, int n){
         if(sum<p[i+1].at){
             int t = p[i+1].at-sum;
             sum = sum+t;
+        }
+    }
+}
+
+void Process::calc_rr(Process *p, int n, int quantum){
+    queue<Process> q;
+    int time = 0;
+    int remaining_burst_time[n];
+    for(int i=0;i<n;i++){
+        remaining_burst_time[i] = p[i].bt;
+    }
+    q.push(p[0]);
+    int i = 1;
+    while(!q.empty()){
+        Process current_process = q.front();
+        q.pop();
+        if(remaining_burst_time[current_process.id-1]<=quantum){
+            time = time + remaining_burst_time[current_process.id-1];
+            remaining_burst_time[current_process.id-1] = 0;
+            p[current_process.id-1].ct = time;
+            p[current_process.id-1].tat = p[current_process.id-1].ct - p[current_process.id-1].at;
+            p[current_process.id-1].wt = p[current_process.id-1].tat - p[current_process.id-1].bt;
+        }else{
+            time = time + quantum;
+            remaining_burst_time[current_process.id-1] = remaining_burst_time[current_process.id-1] - quantum;
+        }
+        while(i<n && p[i].at<=time){
+            q.push(p[i]);
+            i++;
+        }
+        if(remaining_burst_time[current_process.id-1]>0){
+            q.push(current_process);
         }
     }
 }
@@ -72,8 +92,57 @@ void Process::sort(Process*p, int n){
 }
 
 void Process::show(Process*p, int n){
-    cout<<"Process\tArrival\tBurst\tWaiting\tTurn Around\tCompletion\n";
-    for(int i =0;i<n;i++){
-        cout<<"  P["<<p[i].id<<"]\t  "<<p[i].at<<"\t"<<p[i].bt<<"\t"<<p[i].wt<<"\t   "<<p[i].tat<<"\t\t"<<p[i].ct<<"\n";
+    cout<<"Process\tArrival\tBurst\tWaiting\tTurnaround\tCompletion\n";
+    for(int i = 0;i<n;i++){
+cout<<p[i].id<<"\t"<<p[i].at<<"\t"<<p[i].bt<<"\t"<<p[i].wt<<"\t"<<p[i].tat<<"\t"<<p[i].ct<<"\n";
+}
+}
+
+int main(){
+int n, ch, quantum;
+cout<<"\nEnter the number of processes:\n";
+cin>>n;
+Process p[n];
+p[0].input(p,n);
+p[0].sort(p,n);
+
+/*cout<<"\nEnter time quantum for Round Robin scheduling:\n";
+cin>>quantum;
+p[0].calc_rr(p,n,quantum);
+cout<<"\nResults of Round Robin scheduling:\n";
+p[0].show(p,n);
+p[0].calc_fcfs(p,n);
+cout<<"\nResults of FCFS scheduling:\n";
+p[0].show(p,n);*/
+
+do
+{
+    cout<<"1.FCFS"<<endl;
+    cout<<"2.Round Robin"<<endl;
+    cout<<"Enter Your Choice"<<endl;
+    cin>>ch;
+    switch (ch)
+    {
+    case 1:
+        p[0].calc_fcfs(p,n);
+        cout<<"\nResults of FCFS scheduling:\n";
+        p[0].show(p,n);
+        break;
+    case 2:
+        cout<<"\nEnter time quantum for Round Robin scheduling:\n";
+        cin>>quantum;
+        p[0].calc_rr(p,n,quantum);
+        cout<<"\nResults of Round Robin scheduling:\n";
+        p[0].show(p,n);
+        break;
+ 
+    default:
+        break;
     }
+} while (ch!=0);
+
+
+return 0;
+
+
 }

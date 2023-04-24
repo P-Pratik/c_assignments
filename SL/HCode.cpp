@@ -67,7 +67,7 @@ int main ()
     }
     }
     cout << endl << "Hamming codeword bits for even parity are : ";
-    for (int i = 1; i <= a + r; ++i)
+    for (int i = a + r ; i >= 1; --i)
         cout << data[i] << " ";
     cout << endl << endl;
 
