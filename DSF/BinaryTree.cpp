@@ -239,11 +239,13 @@ do
         B.postOrder(B.root);
         cout<<endl;
         break;
+
     case 6:
         int height;
         height = B.height(B.root);
         cout << "The height of the tree is :- " << height << endl;
         break;
+                
     case 9:
         system("clear");
         break;

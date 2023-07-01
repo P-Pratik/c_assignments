@@ -1,5 +1,5 @@
 STR1="Hello"
-STR2="Hello"
+STR2=""
 
 if [ -z "${STR1}" ]
 then

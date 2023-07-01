@@ -40,6 +40,45 @@ void hash1::insert(int arr[])
 }
 
 
+void hash1::insert(int arr[])
+{
+    int key, hf;
+    cout << "Enter key value: ";
+    cin >> key;
+    hf = hashf(key);
+    if (arr[hf] == -1)
+    {
+        arr[hf] = key;
+    }
+    else
+    {
+        int i = hf;
+        int replacementIndex = -1;
+        while (arr[i] != -1)
+        {
+            if (arr[i] == key)
+            {
+                // Key already exists, no need for replacement
+                return;
+            }
+            if (arr[i] == -2 && replacementIndex == -1)
+            {
+                // Found a previously deleted slot, mark it as a potential replacement
+                replacementIndex = i;
+            }
+            i = (i + 1) % n; // Move to the next slot
+        }
+        if (replacementIndex != -1)
+        {
+            arr[replacementIndex] = key; // Replace the deleted slot with the new key
+        }
+        else
+        {
+            arr[i] = key; // Insert the key in the next available slot
+        }
+    }
+}
+
 void hash1 :: display(int arr[])
 {
     cout<<"Index\tKey"<<endl;
