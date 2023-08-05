@@ -1,0 +1,1129 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| base               |
+| employee_record_59 |
+| information_schema |
+| institute          |
+| institute09        |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use employee_record_59;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------------+
+| Tables_in_employee_record_59 |
++------------------------------+
+| dependant                    |
+| dept                         |
+| employee                     |
+| project                      |
+| works                        |
++------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> describe employee; 
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| emp_name        | varchar(255)  | YES  |     | NULL    |       |
+| emp_id          | int           | NO   | PRI | NULL    |       |
+| address         | varchar(1000) | YES  |     | NULL    |       |
+| city            | varchar(255)  | YES  |     | NULL    |       |
+| dob             | date          | YES  |     | NULL    |       |
+| date_of_joining | date          | YES  |     | NULL    |       |
+| gender          | char(1)       | YES  |     | NULL    |       |
+| salary          | int           | YES  |     | NULL    |       |
+| dept_no         | int           | YES  | MUL | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add mobile_number int;
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 |          NULL |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 |          NULL |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 |          NULL |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 |          NULL |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 |          NULL |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 |          NULL |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 |          NULL |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 |          NULL |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 |          NULL |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 |          NULL |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> insert into employee (mobile_number)
+    -> ^C
+mysql> alter table employee
+    -> modify mobile_number varchar(255);
+Query OK, 10 rows affected (2.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | NULL          |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | NULL          |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | NULL          |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | NULL          |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | NULL          |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | NULL          |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | NULL          |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | NULL          |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | NULL          |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | NULL          |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> describe employee; 
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| emp_name        | varchar(255)  | YES  |     | NULL    |       |
+| emp_id          | int           | NO   | PRI | NULL    |       |
+| address         | varchar(1000) | YES  |     | NULL    |       |
+| city            | varchar(255)  | YES  |     | NULL    |       |
+| dob             | date          | YES  |     | NULL    |       |
+| date_of_joining | date          | YES  |     | NULL    |       |
+| gender          | char(1)       | YES  |     | NULL    |       |
+| salary          | int           | YES  |     | NULL    |       |
+| dept_no         | int           | YES  | MUL | NULL    |       |
+| mobile_number   | varchar(255)  | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> insert into employee (mobile_number)
+    -> ^C
+mysql> insert into employee (mobile_number)
+    -> values (+91-8918931919),
+    -> (+91-8193018391)
+    -> ;
+ERROR 1364 (HY000): Field 'emp_id' doesn't have a default value
+mysql> update employee
+    -> set mobile_number = +91-9901930119
+    -> where emp_id = 101;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> ^C
+mysql> UPDATE employee SET mobile_number = '+91-9901930320' WHERE emp_id = 103;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930321' WHERE emp_id = 104;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930322' WHERE emp_id = 105;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930323' WHERE emp_id = 106;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930324' WHERE emp_id = 107;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930325' WHERE emp_id = 108;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930326' WHERE emp_id = 109;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-9901930327' WHERE emp_id = 110;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | -9901930028    |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | NULL           |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE employee SET mobile_number = '+91-9909010327' WHERE emp_id = 101;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee SET mobile_number = '+91-8909019327' WHERE emp_id = 102;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------------+
+| Tables_in_employee_record_59 |
++------------------------------+
+| dependant                    |
+| dept                         |
+| employee                     |
+| project                      |
+| works                        |
++------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from projects; 
+ERROR 1146 (42S02): Table 'employee_record_59.projects' doesn't exist
+mysql> select * from project;
++------------+----------------------------------+------------+---------+
+| project_id | title                            | city       | dept_no |
++------------+----------------------------------+------------+---------+
+|       1000 | Online Banking System            | Mumbai     |      10 |
+|       1001 | Mobile App Testing               | Pune       |      11 |
+|       1002 | Enterprise Resource Planning     | Nashik     |      12 |
+|       1003 | E-commerce Platform Upgrade      | Nagpur     |      13 |
+|       1004 | Sales Management System          | Aurangabad |      14 |
+|       1005 | Digital Payment Integration      | Mumbai     |      10 |
+|       1006 | Data Analysis Tool Development   | Pune       |      11 |
+|       1007 | Supply Chain Optimization        | Nashik     |      12 |
+|       1008 | Inventory Management System      | Nagpur     |      13 |
+|       1009 | Customer Relationship Management | Aurangabad |      14 |
++------------+----------------------------------+------------+---------+
+10 rows in set (0.00 sec)
+
+mysql> delete from project where project_id = 1001;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`employee_record_59`.`works`, CONSTRAINT `works_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`))
+mysql> describe project;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| project_id | int          | NO   | PRI | NULL    |       |
+| title      | varchar(255) | YES  |     | NULL    |       |
+| city       | varchar(255) | YES  |     | NULL    |       |
+| dept_no    | int          | YES  | MUL | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table drop column dept_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop column dept_no' at line 1
+mysql> alter table project drop column dept_no;
+ERROR 1828 (HY000): Cannot drop column 'dept_no': needed in a foreign key constraint 'FK_project_dept_no'
+mysql> alter table project drop foreign key FK_project_dept_no;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table project drop column dept_no;
+Query OK, 0 rows affected (1.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> delete from project where project_id = 1001;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`employee_record_59`.`works`, CONSTRAINT `works_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`))
+mysql> describe project;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| project_id | int          | NO   | PRI | NULL    |       |
+| title      | varchar(255) | YES  |     | NULL    |       |
+| city       | varchar(255) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from project;
++------------+----------------------------------+------------+
+| project_id | title                            | city       |
++------------+----------------------------------+------------+
+|       1000 | Online Banking System            | Mumbai     |
+|       1001 | Mobile App Testing               | Pune       |
+|       1002 | Enterprise Resource Planning     | Nashik     |
+|       1003 | E-commerce Platform Upgrade      | Nagpur     |
+|       1004 | Sales Management System          | Aurangabad |
+|       1005 | Digital Payment Integration      | Mumbai     |
+|       1006 | Data Analysis Tool Development   | Pune       |
+|       1007 | Supply Chain Optimization        | Nashik     |
+|       1008 | Inventory Management System      | Nagpur     |
+|       1009 | Customer Relationship Management | Aurangabad |
++------------+----------------------------------+------------+
+10 rows in set (0.01 sec)
+
+mysql> delete from project
+    -> where project_id=1001;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`employee_record_59`.`works`, CONSTRAINT `works_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`))
+mysql> select * from works;
++--------+------------+------------------+
+| emp_id | project_id | total_hrs_worked |
++--------+------------+------------------+
+|    101 |       1000 |              120 |
+|    102 |       1001 |               90 |
+|    103 |       1002 |              140 |
+|    104 |       1003 |               80 |
+|    105 |       1004 |              110 |
+|    106 |       1005 |              100 |
+|    107 |       1006 |               70 |
+|    108 |       1007 |              130 |
+|    103 |       1008 |               95 |
+|    110 |       1009 |              115 |
++--------+------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> update works
+    -> set project_id = 1002
+    -> where emp_id = 102;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from project where project_id=1001;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee where emp_name like 's%';
++----------------+--------+--------------------+------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name       | emp_id | address            | city | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++----------------+--------+--------------------+------+------------+-----------------+--------+--------+---------+----------------+
+| Shaurya Chavan |    107 | 234 Birch Rd, Pune | Pune | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
++----------------+--------+--------------------+------+------------+-----------------+--------+--------+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------------+
+| Tables_in_employee_record_59 |
++------------------------------+
+| dependant                    |
+| dept                         |
+| employee                     |
+| project                      |
+| works                        |
++------------------------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from dept where location = "Building 1";
++---------+-------------+------------+----------------+
+| dept_no | name        | location   | manager_emp_id |
++---------+-------------+------------+----------------+
+|      10 | Development | Building 1 |            101 |
++---------+-------------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where date_of_joining between 2019-01-01 and 2020-12-31;
+Empty set, 2 warnings (0.00 sec)
+
+mysql> select * from employee where date_of_joining between '2019-01-01' and '2020-12-31';
++-------------+--------+--------------------+--------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name    | emp_id | address            | city   | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-------------+--------+--------------------+--------+------------+-----------------+--------+--------+---------+----------------+
+| Aarav Ghosh |    109 | 789 Oak St, Nagpur | Nagpur | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
++-------------+--------+--------------------+--------+------------+-----------------+--------+--------+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary > 50000;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from project where city = "Pune";
++------------+--------------------------------+------+
+| project_id | title                          | city |
++------------+--------------------------------+------+
+|       1006 | Data Analysis Tool Development | Pune |
++------------+--------------------------------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from dependants where emp_id = 102;
+ERROR 1146 (42S02): Table 'employee_record_59.dependants' doesn't exist
+mysql> select * from dependant where emp_id = 102;
++--------+-------------------+------+-------------+
+| emp_id | name_of_dependant | age  | relation    |
++--------+-------------------+------+-------------+
+|    102 | Meera Deshmukh    |   65 | Grandmother |
++--------+-------------------+------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept;
++---------+----------------+---------------+----------------+
+| dept_no | name           | location      | manager_emp_id |
++---------+----------------+---------------+----------------+
+|      10 | Development    | Building 1    |            101 |
+|      11 | Testing        | Building 2    |            102 |
+|      12 | Planning       | Building 3    |            103 |
+|      13 | Service        | Main Building |            104 |
+|      14 | Administration | Building 2    |            105 |
++---------+----------------+---------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from employee
+    -> ^C
+mysql> select *
+    -> from dept
+    -> right join employee on dept.manager_emp_id
+    -> ;
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| dept_no | name           | location      | manager_emp_id | emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+|      14 | Administration | Building 2    |            105 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      13 | Service        | Main Building |            104 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      12 | Planning       | Building 3    |            103 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      11 | Testing        | Building 2    |            102 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      10 | Development    | Building 1    |            101 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      14 | Administration | Building 2    |            105 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      13 | Service        | Main Building |            104 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      12 | Planning       | Building 3    |            103 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      11 | Testing        | Building 2    |            102 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      10 | Development    | Building 1    |            101 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      14 | Administration | Building 2    |            105 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      13 | Service        | Main Building |            104 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      12 | Planning       | Building 3    |            103 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      11 | Testing        | Building 2    |            102 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      10 | Development    | Building 1    |            101 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      14 | Administration | Building 2    |            105 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      13 | Service        | Main Building |            104 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      12 | Planning       | Building 3    |            103 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      11 | Testing        | Building 2    |            102 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      10 | Development    | Building 1    |            101 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      14 | Administration | Building 2    |            105 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      13 | Service        | Main Building |            104 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      12 | Planning       | Building 3    |            103 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      11 | Testing        | Building 2    |            102 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      10 | Development    | Building 1    |            101 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      14 | Administration | Building 2    |            105 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      13 | Service        | Main Building |            104 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      12 | Planning       | Building 3    |            103 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      11 | Testing        | Building 2    |            102 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      10 | Development    | Building 1    |            101 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      14 | Administration | Building 2    |            105 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      13 | Service        | Main Building |            104 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      12 | Planning       | Building 3    |            103 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      11 | Testing        | Building 2    |            102 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      10 | Development    | Building 1    |            101 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      14 | Administration | Building 2    |            105 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      13 | Service        | Main Building |            104 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      12 | Planning       | Building 3    |            103 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      11 | Testing        | Building 2    |            102 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      10 | Development    | Building 1    |            101 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      14 | Administration | Building 2    |            105 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      13 | Service        | Main Building |            104 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      12 | Planning       | Building 3    |            103 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      11 | Testing        | Building 2    |            102 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      10 | Development    | Building 1    |            101 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      14 | Administration | Building 2    |            105 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      13 | Service        | Main Building |            104 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      12 | Planning       | Building 3    |            103 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      11 | Testing        | Building 2    |            102 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      10 | Development    | Building 1    |            101 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+50 rows in set (0.00 sec)
+
+mysql> select * from dept inner join employee on dept.manager_emp_id;
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| dept_no | name           | location      | manager_emp_id | emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+|      14 | Administration | Building 2    |            105 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      13 | Service        | Main Building |            104 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      12 | Planning       | Building 3    |            103 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      11 | Testing        | Building 2    |            102 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      10 | Development    | Building 1    |            101 | Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+|      14 | Administration | Building 2    |            105 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      13 | Service        | Main Building |            104 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      12 | Planning       | Building 3    |            103 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      11 | Testing        | Building 2    |            102 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      10 | Development    | Building 1    |            101 | Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+|      14 | Administration | Building 2    |            105 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      13 | Service        | Main Building |            104 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      12 | Planning       | Building 3    |            103 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      11 | Testing        | Building 2    |            102 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      10 | Development    | Building 1    |            101 | Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+|      14 | Administration | Building 2    |            105 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      13 | Service        | Main Building |            104 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      12 | Planning       | Building 3    |            103 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      11 | Testing        | Building 2    |            102 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      10 | Development    | Building 1    |            101 | Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+|      14 | Administration | Building 2    |            105 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      13 | Service        | Main Building |            104 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      12 | Planning       | Building 3    |            103 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      11 | Testing        | Building 2    |            102 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      10 | Development    | Building 1    |            101 | Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+|      14 | Administration | Building 2    |            105 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      13 | Service        | Main Building |            104 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      12 | Planning       | Building 3    |            103 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      11 | Testing        | Building 2    |            102 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      10 | Development    | Building 1    |            101 | Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+|      14 | Administration | Building 2    |            105 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      13 | Service        | Main Building |            104 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      12 | Planning       | Building 3    |            103 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      11 | Testing        | Building 2    |            102 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      10 | Development    | Building 1    |            101 | Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+|      14 | Administration | Building 2    |            105 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      13 | Service        | Main Building |            104 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      12 | Planning       | Building 3    |            103 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      11 | Testing        | Building 2    |            102 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      10 | Development    | Building 1    |            101 | Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+|      14 | Administration | Building 2    |            105 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      13 | Service        | Main Building |            104 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      12 | Planning       | Building 3    |            103 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      11 | Testing        | Building 2    |            102 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      10 | Development    | Building 1    |            101 | Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+|      14 | Administration | Building 2    |            105 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      13 | Service        | Main Building |            104 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      12 | Planning       | Building 3    |            103 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      11 | Testing        | Building 2    |            102 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+|      10 | Development    | Building 1    |            101 | Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++---------+----------------+---------------+----------------+-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+50 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------------+
+| Tables_in_employee_record_59 |
++------------------------------+
+| dependant                    |
+| dept                         |
+| employee                     |
+| project                      |
+| works                        |
++------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select employee.emp_name from dept inner join employee on dept.manager_emp_id = emp_id;
++-----------------+
+| emp_name        |
++-----------------+
+| Aryan Patel     |
+| Diya Deshmukh   |
+| Vivaan Joshi    |
+| Aanya Pawar     |
+| Reyansh Bhosale |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------------+
+| Tables_in_employee_record_59 |
++------------------------------+
+| dependant                    |
+| dept                         |
+| employee                     |
+| project                      |
+| works                        |
++------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from dependant;
++--------+--------------------+------+-------------+
+| emp_id | name_of_dependant  | age  | relation    |
++--------+--------------------+------+-------------+
+|    101 | Kiran Patel        |   70 | Grandfather |
+|    102 | Meera Deshmukh     |   65 | Grandmother |
+|    103 | Rahul Joshi        |   30 | Brother     |
+|    104 | Pooja Pawar        |   28 | Sister      |
+|    105 | Alok Bhosale       |   60 | Uncle       |
+|    106 | Aanya Patil        |    6 | Daughter    |
+|    107 | Shaurya Chavan Jr. |    8 | Son         |
+|    108 | Anika Kulkarni     |    4 | Daughter    |
+|    109 | Aarav Ghosh Jr.    |    7 | Son         |
+|    110 | Prisha Gavade      |    5 | Daughter    |
++--------+--------------------+------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select date_format(2019-01-01,%Y);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%Y)' at line 1
+mysql> select date_format(employee.date_of_joining,%Y);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%Y)' at line 1
+mysql> select date_format(employee.date_of_joining,%Y) as age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%Y) as age' at line 1
+mysql> exit 
+mysql> select *
+    -> , DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), date_of_birth)), '%Y') + 0 AS age
+    -> from employee;
+ERROR 1054 (42S22): Unknown column 'date_of_birth' in 'field list'
+mysql> describe employee;
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| emp_name        | varchar(255)  | YES  |     | NULL    |       |
+| emp_id          | int           | NO   | PRI | NULL    |       |
+| address         | varchar(1000) | YES  |     | NULL    |       |
+| city            | varchar(255)  | YES  |     | NULL    |       |
+| dob             | date          | YES  |     | NULL    |       |
+| date_of_joining | date          | YES  |     | NULL    |       |
+| gender          | char(1)       | YES  |     | NULL    |       |
+| salary          | int           | YES  |     | NULL    |       |
+| dept_no         | int           | YES  | MUL | NULL    |       |
+| mobile_number   | varchar(255)  | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select * , DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), '%Y') + 0 AS age from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  | age  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |   38 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |   35 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |   32 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |   31 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |   33 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |   32 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |   30 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |   35 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |   28 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |   28 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+10 rows in set (0.01 sec)
+
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select * , DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), '%Y') + 0 AS age from employee
+    -> order by age asc;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  | age  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |   28 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |   28 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |   30 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |   31 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |   32 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |   32 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |   33 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |   35 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |   35 |
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |   38 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+------+
+10 rows in set (0.00 sec)
+
+mysql> show employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from dept;
++---------+----------------+---------------+----------------+
+| dept_no | name           | location      | manager_emp_id |
++---------+----------------+---------------+----------------+
+|      10 | Development    | Building 1    |            101 |
+|      11 | Testing        | Building 2    |            102 |
+|      12 | Planning       | Building 3    |            103 |
+|      13 | Service        | Main Building |            104 |
+|      14 | Administration | Building 2    |            105 |
++---------+----------------+---------------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from dependant;
++--------+--------------------+------+-------------+
+| emp_id | name_of_dependant  | age  | relation    |
++--------+--------------------+------+-------------+
+|    101 | Kiran Patel        |   70 | Grandfather |
+|    102 | Meera Deshmukh     |   65 | Grandmother |
+|    103 | Rahul Joshi        |   30 | Brother     |
+|    104 | Pooja Pawar        |   28 | Sister      |
+|    105 | Alok Bhosale       |   60 | Uncle       |
+|    106 | Aanya Patil        |    6 | Daughter    |
+|    107 | Shaurya Chavan Jr. |    8 | Son         |
+|    108 | Anika Kulkarni     |    4 | Daughter    |
+|    109 | Aarav Ghosh Jr.    |    7 | Son         |
+|    110 | Prisha Gavade      |    5 | Daughter    |
++--------+--------------------+------+-------------+
+10 rows in set (0.01 sec)
+
+mysql> select * from project;
++------------+----------------------------------+------------+
+| project_id | title                            | city       |
++------------+----------------------------------+------------+
+|       1000 | Online Banking System            | Mumbai     |
+|       1002 | Enterprise Resource Planning     | Nashik     |
+|       1003 | E-commerce Platform Upgrade      | Nagpur     |
+|       1004 | Sales Management System          | Aurangabad |
+|       1005 | Digital Payment Integration      | Mumbai     |
+|       1006 | Data Analysis Tool Development   | Pune       |
+|       1007 | Supply Chain Optimization        | Nashik     |
+|       1008 | Inventory Management System      | Nagpur     |
+|       1009 | Customer Relationship Management | Aurangabad |
++------------+----------------------------------+------------+
+9 rows in set (0.03 sec)
+
+mysql> select * from works;
++--------+------------+------------------+
+| emp_id | project_id | total_hrs_worked |
++--------+------------+------------------+
+|    101 |       1000 |              120 |
+|    102 |       1002 |               90 |
+|    103 |       1002 |              140 |
+|    104 |       1003 |               80 |
+|    105 |       1004 |              110 |
+|    106 |       1005 |              100 |
+|    107 |       1006 |               70 |
+|    108 |       1007 |              130 |
+|    103 |       1008 |               95 |
+|    110 |       1009 |              115 |
++--------+------------+------------------+
+10 rows in set (0.02 sec)
+
+mysql> select employee.emp_name, employee.city from employee;
++-----------------+------------+
+| emp_name        | city       |
++-----------------+------------+
+| Aryan Patel     | Mumbai     |
+| Diya Deshmukh   | Pune       |
+| Vivaan Joshi    | Nashik     |
+| Aanya Pawar     | Nagpur     |
+| Reyansh Bhosale | Aurangabad |
+| Avni Patil      | Mumbai     |
+| Shaurya Chavan  | Pune       |
+| Anika Kulkarni  | Nashik     |
+| Aarav Ghosh     | Nagpur     |
+| Prisha Gavade   | Aurangabad |
++-----------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select employee.emp_name, dept.name from employee
+    -> inner join dept
+    -> order by employee.emp.name asc;
+ERROR 1054 (42S22): Unknown column 'employee.emp.name' in 'order clause'
+mysql> select employee.emp_name, dept.name from employee inner join dept order by employee.emp_name asc;
++-----------------+----------------+
+| emp_name        | name           |
++-----------------+----------------+
+| Aanya Pawar     | Development    |
+| Aanya Pawar     | Testing        |
+| Aanya Pawar     | Planning       |
+| Aanya Pawar     | Service        |
+| Aanya Pawar     | Administration |
+| Aarav Ghosh     | Development    |
+| Aarav Ghosh     | Testing        |
+| Aarav Ghosh     | Planning       |
+| Aarav Ghosh     | Service        |
+| Aarav Ghosh     | Administration |
+| Anika Kulkarni  | Development    |
+| Anika Kulkarni  | Testing        |
+| Anika Kulkarni  | Planning       |
+| Anika Kulkarni  | Service        |
+| Anika Kulkarni  | Administration |
+| Aryan Patel     | Administration |
+| Aryan Patel     | Development    |
+| Aryan Patel     | Testing        |
+| Aryan Patel     | Planning       |
+| Aryan Patel     | Service        |
+| Avni Patil      | Development    |
+| Avni Patil      | Testing        |
+| Avni Patil      | Planning       |
+| Avni Patil      | Service        |
+| Avni Patil      | Administration |
+| Diya Deshmukh   | Administration |
+| Diya Deshmukh   | Service        |
+| Diya Deshmukh   | Planning       |
+| Diya Deshmukh   | Testing        |
+| Diya Deshmukh   | Development    |
+| Prisha Gavade   | Development    |
+| Prisha Gavade   | Testing        |
+| Prisha Gavade   | Planning       |
+| Prisha Gavade   | Service        |
+| Prisha Gavade   | Administration |
+| Reyansh Bhosale | Testing        |
+| Reyansh Bhosale | Administration |
+| Reyansh Bhosale | Service        |
+| Reyansh Bhosale | Planning       |
+| Reyansh Bhosale | Development    |
+| Shaurya Chavan  | Development    |
+| Shaurya Chavan  | Testing        |
+| Shaurya Chavan  | Planning       |
+| Shaurya Chavan  | Service        |
+| Shaurya Chavan  | Administration |
+| Vivaan Joshi    | Testing        |
+| Vivaan Joshi    | Planning       |
+| Vivaan Joshi    | Service        |
+| Vivaan Joshi    | Administration |
+| Vivaan Joshi    | Development    |
++-----------------+----------------+
+50 rows in set (0.00 sec)
+
+mysql> select employee.emp_name, dept.name from employee inner join dept on employee.emp_id = dept.emp_id  order by employee.emp.name asc;
+ERROR 1054 (42S22): Unknown column 'dept.emp_id' in 'on clause'
+mysql> select employee.emp_name, dept.name from employee inner join dept on employee.dept_no = dept.dept_no  order by employee.emp.name asc;
+ERROR 1054 (42S22): Unknown column 'employee.emp.name' in 'order clause'
+mysql> select employee.emp_name, dept.name from employee inner join dept on employee.dept_no = dept.dept_no  order by employee.emp_name asc;
++-----------------+----------------+
+| emp_name        | name           |
++-----------------+----------------+
+| Aanya Pawar     | Service        |
+| Aarav Ghosh     | Service        |
+| Anika Kulkarni  | Planning       |
+| Aryan Patel     | Development    |
+| Avni Patil      | Development    |
+| Diya Deshmukh   | Testing        |
+| Prisha Gavade   | Administration |
+| Reyansh Bhosale | Administration |
+| Shaurya Chavan  | Testing        |
+| Vivaan Joshi    | Planning       |
++-----------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  80800.0000 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> select employee.avg(salary) where dept_no = 10;
+ERROR 1630 (42000): FUNCTION employee.avg does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select employee.avg(salary) from employee where dept_no = 10;
+ERROR 1630 (42000): FUNCTION employee.avg does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select avg(employee.salary) from employee where dept_no = 10;
++----------------------+
+| avg(employee.salary) |
++----------------------+
+|           81000.0000 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(employee.salary), dept.name from employee where dept_no = 10 inner join dept on employee.dept_no = dept.dept_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join dept on employee.dept_no = dept.dept_no' at line 1
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no where dept.dept_no = 10;
++----------------------+-------------+
+| avg(employee.salary) | name        |
++----------------------+-------------+
+|           81000.0000 | Development |
++----------------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no where dept.dept_no = 11;
++----------------------+---------+
+| avg(employee.salary) | name    |
++----------------------+---------+
+|           76500.0000 | Testing |
++----------------------+---------+
+1 row in set (0.00 sec)
+
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'employee_record_59.dept.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no where dept.dept_no;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'employee_record_59.dept.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no where dept.dept_no = 11;
++----------------------+---------+
+| avg(employee.salary) | name    |
++----------------------+---------+
+|           76500.0000 | Testing |
++----------------------+---------+
+1 row in set (0.00 sec)
+
+mysql> declare @count int set @count = 10 while (count <= 14) begin select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no where dept.dept_no = @count end;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'declare @count int set @count = 10 while (count <= 14) begin select avg(employee' at line 1
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from dept
+    -> ;
++---------+----------------+---------------+----------------+
+| dept_no | name           | location      | manager_emp_id |
++---------+----------------+---------------+----------------+
+|      10 | Development    | Building 1    |            101 |
+|      11 | Testing        | Building 2    |            102 |
+|      12 | Planning       | Building 3    |            103 |
+|      13 | Service        | Main Building |            104 |
+|      14 | Administration | Building 2    |            105 |
++---------+----------------+---------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> order by emp_id
+    -> group by city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by city' at line 3
+mysql> select emp_name, city from employee order by emp_id group by city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by city' at line 1
+mysql> select * from employee group by city;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'employee_record_59.employee.emp_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(emp_name) from employee group by city;
++-----------------+
+| count(emp_name) |
++-----------------+
+|               2 |
+|               2 |
+|               2 |
+|               2 |
+|               2 |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(emp_name), city  from employee group by city;
++-----------------+------------+
+| count(emp_name) | city       |
++-----------------+------------+
+|               2 | Mumbai     |
+|               2 | Pune       |
+|               2 | Nashik     |
+|               2 | Nagpur     |
+|               2 | Aurangabad |
++-----------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from dependant;
++--------+--------------------+------+-------------+
+| emp_id | name_of_dependant  | age  | relation    |
++--------+--------------------+------+-------------+
+|    101 | Kiran Patel        |   70 | Grandfather |
+|    102 | Meera Deshmukh     |   65 | Grandmother |
+|    103 | Rahul Joshi        |   30 | Brother     |
+|    104 | Pooja Pawar        |   28 | Sister      |
+|    105 | Alok Bhosale       |   60 | Uncle       |
+|    106 | Aanya Patil        |    6 | Daughter    |
+|    107 | Shaurya Chavan Jr. |    8 | Son         |
+|    108 | Anika Kulkarni     |    4 | Daughter    |
+|    109 | Aarav Ghosh Jr.    |    7 | Son         |
+|    110 | Prisha Gavade      |    5 | Daughter    |
++--------+--------------------+------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(dependant.name_of_dependant), emp.emp_name from employee as emp inner join dependant on emp.emp_id = dependant.emp_id;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'employee_record_59.emp.emp_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(dependant.name_of_dependant), emp.emp_name from employee as emp inner join dependant on emp.emp_id = dependant.emp_id group by emp.emp_id;
++------------------------------------+-----------------+
+| count(dependant.name_of_dependant) | emp_name        |
++------------------------------------+-----------------+
+|                                  1 | Aryan Patel     |
+|                                  1 | Diya Deshmukh   |
+|                                  1 | Vivaan Joshi    |
+|                                  1 | Aanya Pawar     |
+|                                  1 | Reyansh Bhosale |
+|                                  1 | Avni Patil      |
+|                                  1 | Shaurya Chavan  |
+|                                  1 | Anika Kulkarni  |
+|                                  1 | Aarav Ghosh     |
+|                                  1 | Prisha Gavade   |
++------------------------------------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> select avg(employee.salary), dept.name from employee inner join dept on employee.dept_no = dept.dept_no group by dept.dept_no;
++----------------------+----------------+
+| avg(employee.salary) | name           |
++----------------------+----------------+
+|           81000.0000 | Development    |
+|           76500.0000 | Testing        |
+|           83000.0000 | Planning       |
+|           81000.0000 | Service        |
+|           82500.0000 | Administration |
++----------------------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from employees; 
+ERROR 1146 (42S02): Table 'employee_record_59.employees' doesn't exist
+mysql> select * from employee;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 789 Cedar St, Mumbai     | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+10 rows in set (0.01 sec)
+
+mysql> select * from project;
++------------+----------------------------------+------------+
+| project_id | title                            | city       |
++------------+----------------------------------+------------+
+|       1000 | Online Banking System            | Mumbai     |
+|       1002 | Enterprise Resource Planning     | Nashik     |
+|       1003 | E-commerce Platform Upgrade      | Nagpur     |
+|       1004 | Sales Management System          | Aurangabad |
+|       1005 | Digital Payment Integration      | Mumbai     |
+|       1006 | Data Analysis Tool Development   | Pune       |
+|       1007 | Supply Chain Optimization        | Nashik     |
+|       1008 | Inventory Management System      | Nagpur     |
+|       1009 | Customer Relationship Management | Aurangabad |
++------------+----------------------------------+------------+
+9 rows in set (0.01 sec)
+
+mysql> select * from works;
++--------+------------+------------------+
+| emp_id | project_id | total_hrs_worked |
++--------+------------+------------------+
+|    101 |       1000 |              120 |
+|    102 |       1002 |               90 |
+|    103 |       1002 |              140 |
+|    104 |       1003 |               80 |
+|    105 |       1004 |              110 |
+|    106 |       1005 |              100 |
+|    107 |       1006 |               70 |
+|    108 |       1007 |              130 |
+|    103 |       1008 |               95 |
+|    110 |       1009 |              115 |
++--------+------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> select emp.employee_name, sum(works.total_hrs_worked) from employee as emp inner join works where emp.emp_id = 103; 
+ERROR 1054 (42S22): Unknown column 'emp.employee_name' in 'field list'
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works where emp.emp_id = 103;
++--------------+-----------------------------+
+| emp_name     | sum(works.total_hrs_worked) |
++--------------+-----------------------------+
+| Vivaan Joshi |                        1050 |
++--------------+-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join on emp.emp_id = works.emp_id works where emp.emp_id = 103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on emp.emp_id = works.emp_id works where emp.emp_id = 103' at line 1
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id where emp.emp_id = 103;
++--------------+-----------------------------+
+| emp_name     | sum(works.total_hrs_worked) |
++--------------+-----------------------------+
+| Vivaan Joshi |                         235 |
++--------------+-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by emp.emp_id\;
+ERROR: 
+Unknown command '\;'.
+    -> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by emp.emp_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\;
+select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner j' at line 1
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by emp.emp_id\; select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by works.total_hrs_worked;
+ERROR: 
+Unknown command '\;'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\; select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner j' at line 1
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by emp.emp_id\; select emp.emp_name, works.total_hrs_worked from employee as emp inner join works on emp.emp_id = works.emp_id group by works.total_hrs_worked;
+ERROR: 
+Unknown command '\;'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\; select emp.emp_name, works.total_hrs_worked from employee as emp inner join w' at line 1
+mysql> select emp.emp_name, sum(works.total_hrs_worked) from employee as emp inner join works on emp.emp_id = works.emp_id group by emp.emp_id;
++-----------------+-----------------------------+
+| emp_name        | sum(works.total_hrs_worked) |
++-----------------+-----------------------------+
+| Aryan Patel     |                         120 |
+| Diya Deshmukh   |                          90 |
+| Vivaan Joshi    |                         235 |
+| Aanya Pawar     |                          80 |
+| Reyansh Bhosale |                         110 |
+| Avni Patil      |                         100 |
+| Shaurya Chavan  |                          70 |
+| Anika Kulkarni  |                         130 |
+| Prisha Gavade   |                         115 |
++-----------------+-----------------------------+
+9 rows in set (0.00 sec)
