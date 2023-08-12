@@ -938,4 +938,215 @@ mysql> select * from employee left join dept on employee.dept_no = dept.dept_no 
 +-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+---------+----------------+---------------+----------------+
 14 rows in set (0.00 sec)
 
-mysql> exit
+select e.emp_name from employee as e left join dependant as d on e.emp_id = d.emp_id where d.relation ="Manager" and address = some(select a.address from employee a, employee b where a.address = b.address and a.emp_id <> b.emp_id);
++-------------+
+| emp_name    |
++-------------+
+| Aryan Patel |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee; 
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 123 Main St, Mumbai      | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+| Zara Khan       |    111 | 789 Willow Rd, Delhi     | Delhi      | 1994-08-12 | 2020-03-15      | F      |  85000 |      15 | +91-9901930328 |
+| Rohan Sharma    |    112 | 567 Birch St, Mumbai     | Mumbai     | 1995-01-02 | 2021-06-10      | M      |  78000 |      15 | +91-9901930329 |
+| Neha Gupta      |    113 | 123 Elm Ave, Bangalore   | Bangalore  | 1993-11-18 | 2019-12-05      | F      |  90000 |      15 | +91-9901930330 |
+| Arjun Patel     |    114 | 456 Oak Rd, Hyderabad    | Hyderabad  | 1995-06-30 | 2020-09-20      | M      |  80000 |      15 | +91-9901930331 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+14 rows in set (0.00 sec)
+
+mysql> select dept_no,sum(salary) from employee group by dept_no;
++---------+-------------+
+| dept_no | sum(salary) |
++---------+-------------+
+|      10 |      162000 |
+|      11 |      153000 |
+|      12 |      166000 |
+|      13 |      162000 |
+|      14 |      165000 |
+|      15 |      333000 |
++---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select sum(salary) from employee group by dept_no;
++-------------+
+| sum(salary) |
++-------------+
+|      162000 |
+|      153000 |
+|      166000 |
+|      162000 |
+|      165000 |
+|      333000 |
++-------------+
+6 rows in set (0.00 sec)
+
+mysql> select min(select sum(salary) from employee group by dept_no);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select sum(salary) from employee group by dept_no)' at line 1
+mysql> select min(select sum(salary) from employee group by dept_no) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select sum(salary) from employee group by dept_no) from employee' at line 1
+mysql> ^C^C^C
+
+^C
+mysql> 
+mysql> 
+mysql> select MIN(minsalary) from (select sum(salary) as minsalary from employee group by dept_no);
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> select MIN(minsalary) from (select sum(salary) as minsalary from employee group by dept_no) as subq;
++----------------+
+| MIN(minsalary) |
++----------------+
+|         153000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee; 
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |
+| Avni Patil      |    106 | 123 Main St, Mumbai      | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |
+| Zara Khan       |    111 | 789 Willow Rd, Delhi     | Delhi      | 1994-08-12 | 2020-03-15      | F      |  85000 |      15 | +91-9901930328 |
+| Rohan Sharma    |    112 | 567 Birch St, Mumbai     | Mumbai     | 1995-01-02 | 2021-06-10      | M      |  78000 |      15 | +91-9901930329 |
+| Neha Gupta      |    113 | 123 Elm Ave, Bangalore   | Bangalore  | 1993-11-18 | 2019-12-05      | F      |  90000 |      15 | +91-9901930330 |
+| Arjun Patel     |    114 | 456 Oak Rd, Hyderabad    | Hyderabad  | 1995-06-30 | 2020-09-20      | M      |  80000 |      15 | +91-9901930331 |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from project; 
++------------+----------------------------------+------------+
+| project_id | title                            | city       |
++------------+----------------------------------+------------+
+|       1000 | Online Banking System            | Mumbai     |
+|       1002 | Enterprise Resource Planning     | Nashik     |
+|       1003 | E-commerce Platform Upgrade      | Nagpur     |
+|       1004 | Sales Management System          | Aurangabad |
+|       1005 | Digital Payment Integration      | Mumbai     |
+|       1006 | Data Analysis Tool Development   | Pune       |
+|       1007 | Supply Chain Optimization        | Nashik     |
+|       1008 | Inventory Management System      | Nagpur     |
+|       1009 | Customer Relationship Management | Aurangabad |
++------------+----------------------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from works;
++--------+------------+------------------+
+| emp_id | project_id | total_hrs_worked |
++--------+------------+------------------+
+|    101 |       1000 |              120 |
+|    102 |       1002 |               90 |
+|    103 |       1002 |              140 |
+|    104 |       1003 |               80 |
+|    105 |       1004 |              110 |
+|    106 |       1005 |              100 |
+|    107 |       1006 |               70 |
+|    108 |       1007 |              130 |
+|    103 |       1008 |               95 |
+|    110 |       1009 |              115 |
++--------+------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> select p.project_id,p.title,emp_id from works as w left join projects as p on w.project_id = p.project_id;
+ERROR 1146 (42S02): Table 'emp_rec59.projects' doesn't exist
+mysql> select p.project_id,p.title,emp_id from works as w left join project as p on w.project_id = p.project_id;
++------------+----------------------------------+--------+
+| project_id | title                            | emp_id |
++------------+----------------------------------+--------+
+|       1000 | Online Banking System            |    101 |
+|       1002 | Enterprise Resource Planning     |    102 |
+|       1002 | Enterprise Resource Planning     |    103 |
+|       1003 | E-commerce Platform Upgrade      |    104 |
+|       1004 | Sales Management System          |    105 |
+|       1005 | Digital Payment Integration      |    106 |
+|       1006 | Data Analysis Tool Development   |    107 |
+|       1007 | Supply Chain Optimization        |    108 |
+|       1008 | Inventory Management System      |    103 |
+|       1009 | Customer Relationship Management |    110 |
++------------+----------------------------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select emp_name from employee left join works on employee.emp_id = works.emp_id left join project on works.project_id = project.project_id;
++-----------------+
+| emp_name        |
++-----------------+
+| Aryan Patel     |
+| Diya Deshmukh   |
+| Vivaan Joshi    |
+| Vivaan Joshi    |
+| Aanya Pawar     |
+| Reyansh Bhosale |
+| Avni Patil      |
+| Shaurya Chavan  |
+| Anika Kulkarni  |
+| Aarav Ghosh     |
+| Prisha Gavade   |
+| Zara Khan       |
+| Rohan Sharma    |
+| Neha Gupta      |
+| Arjun Patel     |
++-----------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from employee left join works on employee.emp_id = works.emp_id left join project on works.project_id = project.project_id;
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+--------+------------+------------------+------------+----------------------------------+------------+
+| emp_name        | emp_id | address                  | city       | dob        | date_of_joining | gender | salary | dept_no | mobile_number  | emp_id | project_id | total_hrs_worked | project_id | title                            | city       |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+--------+------------+------------------+------------+----------------------------------+------------+
+| Aryan Patel     |    101 | 123 Main St, Mumbai      | Mumbai     | 1985-02-20 | 2010-05-15      | M      |  80000 |      10 | +91-9909010327 |    101 |       1000 |              120 |       1000 | Online Banking System            | Mumbai     |
+| Diya Deshmukh   |    102 | 456 Elm Rd, Pune         | Pune       | 1988-07-10 | 2013-09-25      | F      |  75000 |      11 | +91-8909019327 |    102 |       1002 |               90 |       1002 | Enterprise Resource Planning     | Nashik     |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |    103 |       1002 |              140 |       1002 | Enterprise Resource Planning     | Nashik     |
+| Vivaan Joshi    |    103 | 789 Oak Ave, Nashik      | Nashik     | 1990-11-05 | 2016-03-12      | M      |  90000 |      12 | +91-9901930320 |    103 |       1008 |               95 |       1008 | Inventory Management System      | Nagpur     |
+| Aanya Pawar     |    104 | 567 Maple Ln, Nagpur     | Nagpur     | 1992-04-30 | 2017-08-22      | F      |  70000 |      13 | +91-9901930321 |    104 |       1003 |               80 |       1003 | E-commerce Platform Upgrade      | Nagpur     |
+| Reyansh Bhosale |    105 | 345 Pine Rd, Aurangabad  | Aurangabad | 1989-09-15 | 2012-01-18      | M      |  85000 |      14 | +91-9901930322 |    105 |       1004 |              110 |       1004 | Sales Management System          | Aurangabad |
+| Avni Patil      |    106 | 123 Main St, Mumbai      | Mumbai     | 1991-06-25 | 2015-06-30      | F      |  82000 |      10 | +91-9901930323 |    106 |       1005 |              100 |       1005 | Digital Payment Integration      | Mumbai     |
+| Shaurya Chavan  |    107 | 234 Birch Rd, Pune       | Pune       | 1993-03-12 | 2018-11-10      | M      |  78000 |      11 | +91-9901930324 |    107 |       1006 |               70 |       1006 | Data Analysis Tool Development   | Pune       |
+| Anika Kulkarni  |    108 | 567 Elm Ave, Nashik      | Nashik     | 1987-08-08 | 2011-09-05      | F      |  76000 |      12 | +91-9901930325 |    108 |       1007 |              130 |       1007 | Supply Chain Optimization        | Nashik     |
+| Aarav Ghosh     |    109 | 789 Oak St, Nagpur       | Nagpur     | 1995-01-05 | 2019-07-20      | M      |  92000 |      13 | +91-9901930326 |   NULL |       NULL |             NULL |       NULL | NULL                             | NULL       |
+| Prisha Gavade   |    110 | 123 Cedar Rd, Aurangabad | Aurangabad | 1994-12-01 | 2014-05-28      | F      |  80000 |      14 | +91-9901930327 |    110 |       1009 |              115 |       1009 | Customer Relationship Management | Aurangabad |
+| Zara Khan       |    111 | 789 Willow Rd, Delhi     | Delhi      | 1994-08-12 | 2020-03-15      | F      |  85000 |      15 | +91-9901930328 |   NULL |       NULL |             NULL |       NULL | NULL                             | NULL       |
+| Rohan Sharma    |    112 | 567 Birch St, Mumbai     | Mumbai     | 1995-01-02 | 2021-06-10      | M      |  78000 |      15 | +91-9901930329 |   NULL |       NULL |             NULL |       NULL | NULL                             | NULL       |
+| Neha Gupta      |    113 | 123 Elm Ave, Bangalore   | Bangalore  | 1993-11-18 | 2019-12-05      | F      |  90000 |      15 | +91-9901930330 |   NULL |       NULL |             NULL |       NULL | NULL                             | NULL       |
+| Arjun Patel     |    114 | 456 Oak Rd, Hyderabad    | Hyderabad  | 1995-06-30 | 2020-09-20      | M      |  80000 |      15 | +91-9901930331 |   NULL |       NULL |             NULL |       NULL | NULL                             | NULL       |
++-----------------+--------+--------------------------+------------+------------+-----------------+--------+--------+---------+----------------+--------+------------+------------------+------------+----------------------------------+------------+
+15 rows in set (0.00 sec)
+
+mysql> select emp_name, project.title from employee left join works on employee.emp_id = works.emp_id left join project on works.project_id = project.project_id;
++-----------------+----------------------------------+
+| emp_name        | title                            |
++-----------------+----------------------------------+
+| Aryan Patel     | Online Banking System            |
+| Diya Deshmukh   | Enterprise Resource Planning     |
+| Vivaan Joshi    | Enterprise Resource Planning     |
+| Vivaan Joshi    | Inventory Management System      |
+| Aanya Pawar     | E-commerce Platform Upgrade      |
+| Reyansh Bhosale | Sales Management System          |
+| Avni Patil      | Digital Payment Integration      |
+| Shaurya Chavan  | Data Analysis Tool Development   |
+| Anika Kulkarni  | Supply Chain Optimization        |
+| Aarav Ghosh     | NULL                             |
+| Prisha Gavade   | Customer Relationship Management |
+| Zara Khan       | NULL                             |
+| Rohan Sharma    | NULL                             |
+| Neha Gupta      | NULL                             |
+| Arjun Patel     | NULL                             |
++-----------------+----------------------------------+
+15 rows in set (0.00 sec)
