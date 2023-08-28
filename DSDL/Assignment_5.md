@@ -1,4 +1,6 @@
-Replace `<TABLENAME>`  with your TableName
+>[!NOTE]
+>Replace `<TABLENAME>` with your TableName
+
 
 1. Create Table if not created
 ```sql
