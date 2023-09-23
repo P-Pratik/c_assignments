@@ -1,5 +1,3 @@
->[!NOTE]
->Change table names according to you
 
 1. Creating Tables
 ```sql
@@ -115,3 +113,76 @@ EXCEPTION
         dbms_output.put_line('An error occurred: ' || sqlerrm);
 END;
 ```
+
+# OUTPUT
+
+Input Given
+```
+-- 1st 
+
+Enter value for enter_roll_no: 
+1
+
+old   14:     user_roll_no := &enter_roll_no;
+
+new   14:     user_roll_no := 1;
+
+Enter value for Enter_Book_Name: 
+book1
+
+old   15:     user_book_name := '&Enter_Book_Name';
+
+new   15:     user_book_name := 'book1';
+
+Book returned successfully.Fine amount is Rs.1225
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+
+-- 2nd
+Enter value for enter_roll_no: 
+6
+
+old   14:     user_roll_no := &enter_roll_no;
+
+new   14:     user_roll_no := 6;
+
+Enter value for Enter_Book_Name: 
+Bigtax
+
+old   15:     user_book_name := '&Enter_Book_Name';
+
+new   15:     user_book_name := 'Bigtax';
+
+Book returned successfully.Fine amount is Rs.2175
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+```
+
+Tables After Execution
+
+**Borrower Table**
+
+|ROLL_NO|NAME            |DATE_OF_ISSUE|NAME_OF_BOOK|STATUS|
+|-------|----------------|-------------|------------|------|
+|1      |Khushal Pardeshi|01-AUG-23    |book1       |R     |
+|2      |Row Sole        |15-OCT-22    |Flexidy     |I     |
+|3      |Dael Riste      |11-JUN-23    |Treeflex    |I     |
+|4      |Pegeen Coltherd |02-APR-23    |Treeflex    |I     |
+|5      |Merwin Canwell  |10-JAN-23    |Zoolab      |I     |
+|6      |Shelba Cuel     |13-JUL-23    |Bigtax      |R     |
+|7      |Ellene Simon    |18-DEC-22    |Bitwolf     |I     |
+|8      |Urbanus Donke   |12-MAR-23    |Veribet     |I     |
+|9      |Wait Scheffel   |10-OCT-22    |Sonair      |I     |
+|10     |Remy Plows      |01-SEP-22    |Stringtough |I     |
+
+
+**Fine Table**
+|ROLL_NO|FINED_DATE      |AMT      |
+|-------|----------------|---------|
+|6      |23-SEP-23       |2175     |
+|1      |23-SEP-23       |1225     |
+
