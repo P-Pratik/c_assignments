@@ -1,3 +1,5 @@
+>[!NOTE]
+>Change table names according to you
 
 1. Creating Tables
 ```sql
