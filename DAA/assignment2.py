@@ -22,7 +22,6 @@ def printNodes(node, val=''):
         print(f"{node.symbol} -> {newVal}")
 
 
-
 chars = []
 freq = []
 nodes = []
