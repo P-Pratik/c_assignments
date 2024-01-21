@@ -1,6 +1,5 @@
 # Write a program to implement Huffman Encoding using a greedy strategy.
 import heapq
-
 class node:
     def __init__(self, freq, symbol, left=None, right=None):
         self.freq = freq
@@ -20,7 +19,6 @@ def printNodes(node, val=''):
         printNodes(node.right, newVal)
     if(not node.left and not node.right):
         print(f"{node.symbol} -> {newVal}")
-
 
 chars = []
 freq = []

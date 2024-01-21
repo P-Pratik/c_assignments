@@ -6,10 +6,7 @@ def knapSack(W, wt, val, n):
 # C[n, M] = max(profits for case 1,profits for case 2) = max(C[n-1, M], C[n-1, M - wtn ] + pn).
 
 	else:
-		return max(
-			val[n-1] + knapSack(
-				W-wt[n-1], wt, val, n-1),
-			knapSack(W, wt, val, n-1))
+		return max(val[n-1] + knapSack(W-wt[n-1], wt, val, n-1),knapSack(W, wt, val, n-1))
 
 profit = [60, 100, 120]
 weight = [10, 20, 40]
