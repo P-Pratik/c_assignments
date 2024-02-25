@@ -1,0 +1,119 @@
+XML Document with DTD:
+Save the following XML document as employees.xml:
+xml
+Copy code
+<!DOCTYPE employees [
+  <!ELEMENT employees (employee+)>
+  <!ELEMENT employee (id, name, position, department, salary)>
+  <!ELEMENT id (#PCDATA)>
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT position (#PCDATA)>
+  <!ELEMENT department (#PCDATA)>
+  <!ELEMENT salary (#PCDATA)>
+]>
+<employees>
+  <employee>
+    <id>1</id>
+    <name>John Doe</name>
+    <position>Manager</position>
+    <department>HR</department>
+    <salary>60000</salary>
+  </employee>
+  <!-- Add more employee entries as needed -->
+</employees>
+
+
+
+
+
+
+
+XML Document with XML Schema:
+Save the following XML Schema document as employees.xsd:
+xml
+Copy code
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="employees">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="employee" type="employeeType" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="employeeType">
+    <xs:sequence>
+      <xs:element name="id" type="xs:integer"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="position" type="xs:string"/>
+      <xs:element name="department" type="xs:string"/>
+      <xs:element name="salary" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+
+
+
+
+
+
+
+
+XML Document with CSS/XSL:
+Save the following XSL stylesheet as employees.xsl:
+xml
+Copy code
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <xsl:template match="/">
+    <html>
+      <head>
+        <style>
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        </style>
+      </head>
+      <body>
+        <h2>Employee Information</h2>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Salary</th>
+          </tr>
+          <xsl:apply-templates select="employees/employee"/>
+        </table>
+      </body>
+    </html>
+  </xsl:template>
+
+  <xsl:template match="employee">
+    <tr>
+      <td><xsl:value-of select="id"/></td>
+      <td><xsl:value-of select="name"/></td>
+      <td><xsl:value-of select="position"/></td>
+      <td><xsl:value-of select="department"/></td>
+      <td><xsl:value-of select="salary"/></td>
+    </tr>
+  </xsl:template>
+
+</xsl:stylesheet>
+
+
+
+
+Open employees.xml in a web browser with the help of the XSL stylesheet employees.xsl. The browser will apply the styling, and you should see the employee information displayed in a tabular format.

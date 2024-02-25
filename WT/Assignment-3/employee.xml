@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="viewemp.xsl" type="text/xsl"?>
+
+<!DOCTYPE employees [
+  <!ELEMENT employees (employee+)>
+  <!ELEMENT employee (id, name, position, department, salary)>
+  <!ELEMENT id (#PCDATA)>
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT position (#PCDATA)>
+  <!ELEMENT department (#PCDATA)>
+  <!ELEMENT salary (#PCDATA)>
+]>
+
+
+<employees>
+  <employee>
+    <id>1</id>
+    <name>John Doe</name>
+    <position>Manager</position>
+    <department>HR</department>
+    <salary>60000</salary>
+  </employee>
+
+  <employee>
+    <id>2</id>
+    <name>Jane Smith</name>
+    <position>Engineer</position>
+    <department>IT</department>
+    <salary>50000</salary>
+  </employee>
+  <employee>
+    <id>3</id>
+    <name>Michael Johnson</name>
+    <position>Analyst</position>
+    <department>Finance</department>
+    <salary>55000</salary>
+  </employee>
+  <employee>
+    <id>4</id>
+    <name>Sarah Williams</name>
+    <position>Designer</position>
+    <department>Marketing</department>
+    <salary>45000</salary>
+  </employee>
+  <employee>
+    <id>5</id>
+    <name>David Brown</name>
+    <position>Developer</position>
+    <department>IT</department>
+    <salary>55000</salary>
+  </employee>
+  <employee>
+    <id>6</id>
+    <name>Emily Davis</name>
+    <position>Manager</position>
+    <department>HR</department>
+    <salary>60000</salary>
+  </employee>
+  <employee>
+    <id>7</id>
+    <name>James Wilson</name>
+    <position>Engineer</position>
+    <department>IT</department>
+    <salary>50000</salary>
+  </employee>
+  <employee>
+    <id>8</id>
+    <name>Emma Taylor</name>
+    <position>Analyst</position>
+    <department>Finance</department>
+    <salary>55000</salary>
+  </employee>
+  <employee>
+    <id>9</id>
+    <name>Christopher Anderson</name>
+    <position>Designer</position>
+    <department>Marketing</department>
+    <salary>45000</salary>
+  </employee>
+  <employee>
+    <id>10</id>
+    <name>Ava Martinez</name>
+    <position>Developer</position>
+    <department>IT</department>
+    <salary>55000</salary>
+  </employee>
+
+</employees>
