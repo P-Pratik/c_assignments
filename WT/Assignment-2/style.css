@@ -1,0 +1,314 @@
+*{
+    /* outline: red 1px solid; */
+}
+
+
+.inter-regular {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
+
+body {
+    /* font-family: "Inter", sans-serif; */
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.navmenu{
+    display: flex;
+    justify-content: space-between;
+    background-color: #241c15;
+    color: #f9eecb;
+}
+
+.logo {
+    padding: 0 20px;
+    flex: 1;
+    display: flex;
+    width: 60px;
+    height: 60px;
+}
+
+.logo h1 {
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navlinks {
+    flex: 2;
+    padding: 0 20px;
+}
+.navlinks ul{
+    display: flex;
+    gap: 50px;
+    justify-content: end;
+}
+
+.navlinks ul li {
+    list-style: none;
+}
+
+.navlinks ul li a {
+    text-decoration: none;
+    color: #f9eecb;
+}
+
+.hero {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hero .left {
+    background-color: #f9eecb ; 
+    flex: 3;
+}
+
+.hero .right {
+    background-color: #241c15;
+    flex: 2;
+}
+
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right img{
+    object-fit: cover;
+    height: 60%;
+
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left h1 {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+.left p {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.left button{
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+    background-color: #241c15;
+    color: #f9eecb;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.left button:hover{
+    background-color: #f9eecb;
+    color: #241c15;
+    transition: 0.2s;
+}
+
+.infopanel {
+    background-color: #241c15;
+    color: #f9eecb;
+    padding: 80px 120px;
+
+}
+
+.branding {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.brand-links{
+    max-width: 400px;
+    width: 100%;
+}
+
+.brand-links ul{
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+}
+
+
+.brand-links ul li{
+    height: 36px;
+    width: 36px;
+}
+
+.infomain {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.infomain h2{
+    margin: 0;
+    padding: 10px 0;
+
+}
+
+.infomain div{
+    max-width: 400px;
+    padding: 0 ;
+}
+
+.infomain div ul{
+    padding: 0;
+    list-style: none;
+}
+
+.infomain div ul li{
+    padding: 4px 0;
+}
+
+.infomain div ul li a{
+    text-decoration: none;
+    color: #f9eecb;
+
+}
+
+.newsletter{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.newsletter input{
+    min-width: 200px;
+    padding: 12px 20px;
+    border-radius: 2px;
+    border: none;
+}
+
+.newsletter button{
+    min-width: 150px;
+    width: 60%;
+    padding: 10px 20px;
+    border: 2px solid #f9eecb;
+    background-color: #241c15;
+    color: #f9eecb;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.newsletter button:hover{
+    background-color: #f9eecb;
+    color: #241c15;
+    transition: 0.2s;
+}
+
+.contact {
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+}
+
+.contact div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact div svg{
+    height: 60px;
+    width: 60px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 120px;
+}
+
+footer a{
+    text-decoration: none;
+    color: #ff004c;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 80px 80px;
+    background-color: #f6f5f0;
+    color: #241c15;
+}
+
+.part_2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 2;
+}
+
+
+.part_1 {
+    flex: 1;
+}
+.part_2 div{
+    flex: 1;
+}
+
+.part_2 .diff{
+    background-color: #241c15;
+    color: #f9eecb;
+
+}
+.part_1, .part_2 div {
+    background-color: #f9eecb;
+    padding: 40px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px 0 rgba(42, 30, 3, 0.15);
+}
+
+.part_1 img{
+    width: 100%;
+}
+
+.diff{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap ;
+}
+
+.diff aside{
+    max-width: 400px;
+}
+
+.diff img{
+    height: 200px;
+    display: inline-block;
+}
+
+
